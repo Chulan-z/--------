@@ -36,6 +36,8 @@ CREATE TABLE news_articles (
     title VARCHAR(500) NOT NULL,
     content TEXT NOT NULL,
     url VARCHAR(700) NOT NULL UNIQUE,
+    image_url VARCHAR(700),
+    is_featured BOOLEAN NOT NULL DEFAULT FALSE,
     published_at TIMESTAMPTZ,
     fetched_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     category VARCHAR(100)

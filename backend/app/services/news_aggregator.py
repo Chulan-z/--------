@@ -38,6 +38,22 @@ def _category_for_entry(db: Session, entry: dict) -> Category | None:
     return category
 
 
+def _image_for_entry(entry: dict) -> str | None:
+    media = entry.get("media_content") or []
+    for item in media:
+        url = item.get("url")
+        if url:
+            return url[:700]
+    links = entry.get("links") or []
+    for link in links:
+        href = link.get("href")
+        link_type = link.get("type") or ""
+        rel = link.get("rel") or ""
+        if href and (link_type.startswith("image/") or rel == "enclosure"):
+            return href[:700]
+    return None
+
+
 def fetch_source(db: Session, source: NewsSource) -> int:
     if source.type != "rss":
         write_log(
@@ -77,6 +93,7 @@ def fetch_source(db: Session, source: NewsSource) -> int:
                 title=title[:500],
                 content=content,
                 url=url[:700],
+                image_url=_image_for_entry(entry),
                 published_at=published_at,
                 fetched_at=datetime.now(timezone.utc),
                 category=category.name if category else None,

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, String, Text, func
+from sqlalchemy import Boolean, DateTime, ForeignKey, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
@@ -15,6 +15,8 @@ class NewsArticle(Base):
     title: Mapped[str] = mapped_column(String(500), index=True, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
     url: Mapped[str] = mapped_column(String(700), unique=True, nullable=False)
+    image_url: Mapped[str | None] = mapped_column(String(700))
+    is_featured: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
     fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     category: Mapped[str | None] = mapped_column(String(100))

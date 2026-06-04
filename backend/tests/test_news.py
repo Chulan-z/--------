@@ -27,3 +27,27 @@ def test_article_feed_filters_by_query(client, db_session):
     assert response.status_code == 200
     assert len(response.json()) == 1
     assert response.json()[0]["source"]["name"] == "Local"
+
+
+def test_admin_can_create_featured_article_with_image(client):
+    login = client.post("/api/auth/login", json={"email": "admin@example.com", "password": "admin12345"})
+    token = login.json()["access_token"]
+    created = client.post(
+        "/api/admin/articles",
+        headers={"Authorization": f"Bearer {token}"},
+        json={
+            "title": "Своя главная новость",
+            "content": "Текст новости, добавленной администратором вручную.",
+            "category": "Редакция",
+            "image_url": "https://example.com/news.jpg",
+            "is_featured": True,
+        },
+    )
+
+    assert created.status_code == 201
+    assert created.json()["image_url"] == "https://example.com/news.jpg"
+    assert created.json()["is_featured"] is True
+
+    feed = client.get("/api/articles")
+    assert feed.status_code == 200
+    assert feed.json()[0]["title"] == "Своя главная новость"

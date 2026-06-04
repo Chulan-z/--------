@@ -38,8 +38,32 @@ class ArticleOut(ORMModel):
     title: str
     content: str
     url: str
+    image_url: str | None
+    is_featured: bool
     published_at: datetime | None
     fetched_at: datetime
     category: str | None
     source: SourceOut
     category_ref: CategoryOut | None
+
+
+class ArticleCreate(BaseModel):
+    title: str = Field(min_length=5, max_length=500)
+    content: str = Field(min_length=10)
+    url: HttpUrl | None = None
+    image_url: HttpUrl | None = None
+    category: str = Field(default="Редакция", min_length=2, max_length=100)
+    source_id: int | None = None
+    published_at: datetime | None = None
+    is_featured: bool = True
+
+
+class ArticleUpdate(BaseModel):
+    title: str | None = Field(default=None, min_length=5, max_length=500)
+    content: str | None = Field(default=None, min_length=10)
+    url: HttpUrl | None = None
+    image_url: HttpUrl | None = None
+    category: str | None = Field(default=None, min_length=2, max_length=100)
+    source_id: int | None = None
+    published_at: datetime | None = None
+    is_featured: bool | None = None

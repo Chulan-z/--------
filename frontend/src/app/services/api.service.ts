@@ -15,6 +15,21 @@ export class ApiService {
     return this.http.get<Article[]>(`${this.baseUrl}/articles`, { params });
   }
 
+  createArticle(payload: {
+    title: string;
+    content: string;
+    url?: string | null;
+    image_url?: string | null;
+    category: string;
+    is_featured: boolean;
+  }) {
+    return this.http.post<Article>(`${this.baseUrl}/admin/articles`, payload);
+  }
+
+  deleteArticle(id: number) {
+    return this.http.delete(`${this.baseUrl}/admin/articles/${id}`);
+  }
+
   sources() {
     return this.http.get<Source[]>(`${this.baseUrl}/sources`);
   }

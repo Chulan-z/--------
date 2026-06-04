@@ -97,6 +97,14 @@ Backend: `http://localhost:8000`, Swagger: `http://localhost:8000/docs`, fronten
 
 Администратор создается автоматически: `admin@example.com` / `admin12345`.
 
+Быстрый запуск из корня проекта на Windows:
+
+```powershell
+.\scripts\start_dev.ps1
+```
+
+Скрипт применит миграции и откроет два окна PowerShell: backend и frontend.
+
 ## REST API
 
 - `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/refresh`, `POST /api/auth/logout`, `GET /api/auth/me`
@@ -158,3 +166,6 @@ pytest
 ## Коммиты по дням
 
 Скрипт [scripts/create_daily_commits.sh](scripts/create_daily_commits.sh) создает 21 последовательный git-коммит с датами и сообщениями формата `День N: <что сделано>`.
+
+cd "C:\Users\user\Documents\Практика"
+powershell -ExecutionPolicy Bypass -File .\scripts\start_dev.ps1

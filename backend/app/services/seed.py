@@ -26,6 +26,12 @@ DEFAULT_CATEGORIES = ["Мир", "Технологии", "Экономика", "�
 
 DEFAULT_SOURCES = [
     {
+        "name": "Редакция агрегатора",
+        "url": "https://local.news/manual",
+        "type": "api",
+        "is_active": False,
+    },
+    {
         "name": "BBC World",
         "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
         "type": "rss",
@@ -59,7 +65,9 @@ def seed_data(db: Session) -> None:
 
     for source_data in DEFAULT_SOURCES:
         if db.query(NewsSource).filter(NewsSource.url == source_data["url"]).one_or_none() is None:
-            db.add(NewsSource(**source_data, is_active=True))
+            data = source_data.copy()
+            is_active = data.pop("is_active", True)
+            db.add(NewsSource(**data, is_active=is_active))
     db.commit()
 
     admin_role = db.query(Role).filter(Role.name == "admin").one()

@@ -34,6 +34,8 @@ export interface Article {
   title: string;
   content: string;
   url: string;
+  image_url: string | null;
+  is_featured: boolean;
   published_at: string | null;
   fetched_at: string;
   category: string | null;

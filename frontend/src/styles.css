@@ -66,6 +66,10 @@ input, select, textarea {
   color: var(--text);
 }
 
+textarea {
+  resize: vertical;
+}
+
 .page {
   width: min(1180px, calc(100vw - 32px));
   margin: 0 auto;
@@ -128,6 +132,20 @@ input, select, textarea {
   margin: 0 0 10px;
 }
 
+.news-card {
+  overflow: hidden;
+}
+
+.news-image {
+  width: calc(100% + 32px);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  margin: -16px -16px 14px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--line);
+}
+
 .muted {
   color: var(--muted);
 }
@@ -157,6 +175,188 @@ input, select, textarea {
   vertical-align: top;
 }
 
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-page {
+  width: min(1240px, calc(100vw - 32px));
+}
+
+.admin-page h1 {
+  margin-top: 0;
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, .95fr) minmax(430px, 1.45fr) minmax(300px, 1fr);
+  grid-template-areas:
+    "manual manual manual"
+    "sources users backups"
+    "articles articles articles"
+    "logs logs logs";
+  gap: 14px;
+  align-items: start;
+}
+
+.admin-card {
+  min-width: 0;
+}
+
+.admin-card h2 {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.sources-card {
+  grid-area: sources;
+}
+
+.manual-card {
+  grid-area: manual;
+}
+
+.users-card {
+  grid-area: users;
+}
+
+.backups-card {
+  grid-area: backups;
+}
+
+.logs-card {
+  grid-area: logs;
+}
+
+.articles-card {
+  grid-area: articles;
+}
+
+.admin-form {
+  max-width: none;
+}
+
+.manual-card .admin-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.manual-card textarea,
+.manual-card .check-row,
+.manual-card button,
+.manual-card .admin-status {
+  grid-column: 1 / -1;
+}
+
+.check-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--muted);
+}
+
+.admin-list {
+  display: grid;
+  gap: 0;
+  margin-top: 14px;
+}
+
+.admin-list-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding: 10px 0;
+}
+
+.stacked-text {
+  min-width: 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.stacked-text strong {
+  overflow-wrap: anywhere;
+}
+
+.admin-action {
+  margin-top: 12px;
+}
+
+.admin-status {
+  overflow-wrap: anywhere;
+}
+
+.admin-table {
+  table-layout: fixed;
+  min-width: 100%;
+}
+
+.admin-table th,
+.admin-table td {
+  font-size: 13px;
+}
+
+.users-card .admin-table th:nth-child(1),
+.users-card .admin-table td:nth-child(1) {
+  width: 44px;
+}
+
+.users-card .admin-table th:nth-child(3),
+.users-card .admin-table td:nth-child(3) {
+  width: 92px;
+}
+
+.users-card .admin-table th:nth-child(4),
+.users-card .admin-table td:nth-child(4) {
+  width: 86px;
+}
+
+.logs-table th:nth-child(1),
+.logs-table td:nth-child(1) {
+  width: 110px;
+}
+
+.logs-table th:nth-child(2),
+.logs-table td:nth-child(2) {
+  width: 96px;
+}
+
+.logs-table th:nth-child(3),
+.logs-table td:nth-child(3) {
+  width: 150px;
+}
+
+.articles-table th:nth-child(1),
+.articles-table td:nth-child(1) {
+  width: 58px;
+}
+
+.articles-table th:nth-child(3),
+.articles-table td:nth-child(3) {
+  width: 150px;
+}
+
+.articles-table th:nth-child(4),
+.articles-table td:nth-child(4) {
+  width: 110px;
+}
+
+.cell-break {
+  overflow-wrap: anywhere;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.table-checkbox {
+  width: auto;
+}
+
 .badge {
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -182,5 +382,38 @@ input, select, textarea {
   .table {
     display: block;
     overflow-x: auto;
+  }
+}
+
+@media (max-width: 1100px) {
+  .admin-layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "manual manual"
+      "sources backups"
+      "users users"
+      "articles articles"
+      "logs logs";
+  }
+}
+
+@media (max-width: 760px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "manual"
+      "sources"
+      "users"
+      "backups"
+      "articles"
+      "logs";
+  }
+
+  .manual-card .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-list-row {
+    grid-template-columns: 1fr;
   }
 }

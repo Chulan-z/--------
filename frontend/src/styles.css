@@ -121,6 +121,88 @@ textarea {
   gap: 14px;
 }
 
+.feed-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.feed-head h1 {
+  margin: 0 0 8px;
+}
+
+.feed-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.feed-section {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  margin-top: 18px;
+}
+
+.category-section {
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  margin-top: 24px;
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.category-title h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.subsection-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0 12px;
+}
+
+.subsection-title h3 {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.regular-title {
+  margin-top: 20px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 14px;
+}
+
 .card {
   border: 1px solid var(--line);
   background: var(--panel);
@@ -136,6 +218,14 @@ textarea {
   overflow: hidden;
 }
 
+.featured-card {
+  border-color: color-mix(in srgb, var(--accent-2) 55%, var(--line));
+}
+
+.featured-card h2 {
+  font-size: 24px;
+}
+
 .news-image {
   width: calc(100% + 32px);
   aspect-ratio: 16 / 9;
@@ -144,6 +234,22 @@ textarea {
   margin: -16px -16px 14px;
   background: var(--panel-2);
   border-bottom: 1px solid var(--line);
+}
+
+.featured-image {
+  aspect-ratio: 21 / 9;
+}
+
+.priority-badge {
+  color: var(--accent-2);
+  border-color: color-mix(in srgb, var(--accent-2) 45%, var(--line));
+}
+
+.empty-panel {
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  background: var(--panel);
 }
 
 .muted {
@@ -382,6 +488,22 @@ textarea {
   .table {
     display: block;
     overflow-x: auto;
+  }
+
+  .feed-head {
+    flex-direction: column;
+  }
+
+  .feed-search {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-card h2 {
+    font-size: 20px;
   }
 }
 

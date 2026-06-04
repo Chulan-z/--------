@@ -22,11 +22,20 @@ ROLE_PERMISSIONS = {
     ],
 }
 
-DEFAULT_CATEGORIES = ["Мир", "Технологии", "Экономика", "Наука", "Спорт", "Культура"]
+DEFAULT_CATEGORIES = [
+    "\u0412\u0430\u0436\u043d\u0430\u044f",
+    "\u041c\u0438\u0440",
+    "\u041f\u0440\u043e\u0438\u0441\u0448\u0435\u0441\u0442\u0432\u0438\u044f",
+    "\u0413\u043e\u0440\u043e\u0434",
+    "\u041e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u043d\u0438\u0435",
+    "\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438",
+    "\u0421\u043f\u043e\u0440\u0442",
+    "\u041a\u0443\u043b\u044c\u0442\u0443\u0440\u0430",
+]
 
 DEFAULT_SOURCES = [
     {
-        "name": "Редакция агрегатора",
+        "name": "\u0420\u0435\u0434\u0430\u043a\u0446\u0438\u044f \u0430\u0433\u0440\u0435\u0433\u0430\u0442\u043e\u0440\u0430",
         "url": "https://local.news/manual",
         "type": "api",
         "is_active": False,
@@ -64,10 +73,15 @@ def seed_data(db: Session) -> None:
     db.commit()
 
     for source_data in DEFAULT_SOURCES:
-        if db.query(NewsSource).filter(NewsSource.url == source_data["url"]).one_or_none() is None:
+        source = db.query(NewsSource).filter(NewsSource.url == source_data["url"]).one_or_none()
+        if source is None:
             data = source_data.copy()
             is_active = data.pop("is_active", True)
             db.add(NewsSource(**data, is_active=is_active))
+        else:
+            source.name = source_data["name"]
+            source.type = source_data["type"]
+            source.is_active = source_data.get("is_active", source.is_active)
     db.commit()
 
     admin_role = db.query(Role).filter(Role.name == "admin").one()

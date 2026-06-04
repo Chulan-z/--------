@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl, field_validator
 
 from app.schemas.common import ORMModel
 
@@ -52,10 +52,18 @@ class ArticleCreate(BaseModel):
     content: str = Field(min_length=10)
     url: HttpUrl | None = None
     image_url: HttpUrl | None = None
-    category: str = Field(default="Редакция", min_length=2, max_length=100)
+    category: str = Field(default="Важная", min_length=2, max_length=100)
     source_id: int | None = None
     published_at: datetime | None = None
     is_featured: bool = True
+
+    @field_validator("title", "content", "category")
+    @classmethod
+    def strip_and_require_text(cls, value: str) -> str:
+        value = value.strip()
+        if not value:
+            raise ValueError("Поле обязательно для заполнения")
+        return value
 
 
 class ArticleUpdate(BaseModel):
@@ -67,3 +75,13 @@ class ArticleUpdate(BaseModel):
     source_id: int | None = None
     published_at: datetime | None = None
     is_featured: bool | None = None
+
+    @field_validator("title", "content", "category")
+    @classmethod
+    def strip_optional_text(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+        value = value.strip()
+        if not value:
+            raise ValueError("Поле обязательно для заполнения")
+        return value

@@ -29,6 +29,11 @@ export interface Source {
   created_at: string;
 }
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 export interface Article {
   id: number;
   title: string;

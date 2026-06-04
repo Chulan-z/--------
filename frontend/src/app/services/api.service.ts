@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Article, Backup, LogEntry, Source, User } from '../models/api.models';
+import { Article, Backup, Category, LogEntry, Source, User } from '../models/api.models';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -32,6 +32,10 @@ export class ApiService {
 
   sources() {
     return this.http.get<Source[]>(`${this.baseUrl}/sources`);
+  }
+
+  categories() {
+    return this.http.get<Category[]>(`${this.baseUrl}/categories`);
   }
 
   createSource(payload: Partial<Source>) {
